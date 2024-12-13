@@ -3,7 +3,10 @@ import 'package:passengercontrol_chaskipass/screens/home/scanner.home.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({super.key});
+  final String code;
+  final Function() closeScreen;
+  
+  const ResultScreen({super.key, required this.code, required this.closeScreen});
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -15,6 +18,13 @@ class _ResultScreenState extends State<ResultScreen> {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            widget.closeScreen();
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
         title: Text(
           "Scanner de QR",
@@ -31,8 +41,7 @@ class _ResultScreenState extends State<ResultScreen> {
         child: Column(
           children: [
             //Mostrar QR Code here
-            QrImageView(data: '', size: 150, version: QrVersions.auto),
-
+            QrImageView(data: widget.code, size: 150, version: QrVersions.auto),
             Text(
               "Resultados Escaneados",
               style: TextStyle(
@@ -44,7 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              "Resultados pendejos",
+              '${widget.code}',
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 15,

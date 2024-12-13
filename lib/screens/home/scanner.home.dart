@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:passengercontrol_chaskipass/screens/home/resultScreen.home.dart';
 
 const bgColor = Color(0xfffafafa);
 
@@ -11,6 +12,12 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
+  bool isScanCompleted = false;
+
+  void closeScreen() {
+    isScanCompleted = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +70,26 @@ class _ScannerScreenState extends State<ScannerScreen> {
             Expanded(
               flex: 4,
               child: (MobileScanner(
-                onDetect: (qrCode) {
-                  print(qrCode);
+                onDetect: (barcodeCapture) {
+                  if (!isScanCompleted) {
+                    // Obtenemos el primer código detectado
+                    if (barcodeCapture.barcodes.isNotEmpty) {
+                      // rawValue contiene el valor del QR escaneado
+                      String resultString =
+                          barcodeCapture.barcodes.first.rawValue ?? '';
+                      isScanCompleted = true;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => ResultScreen(
+                                code: resultString,
+                                closeScreen: closeScreen,
+                              ),
+                        ),
+                      );
+                    }
+                  }
                 },
               )),
             ),
