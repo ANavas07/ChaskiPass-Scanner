@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passengercontrol_chaskipass/screens/auth/views/login.views.dart';
-import 'package:passengercontrol_chaskipass/screens/home/scanner.home.dart';
+import 'package:passengercontrol_chaskipass/screens/home/principalView.home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LoginScreen(),
-      // home: const ScannerScreen(),
+      // home: Principalview(),
     );
   }
 }

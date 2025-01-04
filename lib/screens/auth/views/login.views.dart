@@ -4,6 +4,7 @@ import 'package:passengercontrol_chaskipass/components/inputDecoration.component
 import 'package:passengercontrol_chaskipass/components/passwordField.components.dart';
 import 'package:passengercontrol_chaskipass/models/loginRequest.models.dart';
 import 'package:passengercontrol_chaskipass/screens/auth/helpers/auth.helpers.dart';
+import 'package:passengercontrol_chaskipass/screens/home/principalView.home.dart';
 import 'package:passengercontrol_chaskipass/screens/home/scanner.home.dart';
 import 'package:passengercontrol_chaskipass/services/authService.services.dart';
 // import 'package:passengercontrol_chaskipass/src/blocs/errorPopup.blocs.dart';
@@ -206,6 +207,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void navigateToNextScreen(BuildContext context) {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (context) => const ScannerScreen()));
+    ).push(MaterialPageRoute(builder: (context) => Principalview()));
   }
 }
