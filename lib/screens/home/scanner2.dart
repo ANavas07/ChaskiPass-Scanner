@@ -9,7 +9,9 @@ import 'package:open_file/open_file.dart';
 const bgColor = Color(0xfffafafa);
 
 class ScannerScreen2 extends StatefulWidget {
-  const ScannerScreen2({super.key});
+  final String frequencyID;
+
+  const ScannerScreen2({super.key, required this.frequencyID});
 
   @override
   State<ScannerScreen2> createState() => _ScannerScreen2State();
@@ -26,13 +28,13 @@ class _ScannerScreen2State extends State<ScannerScreen2> {
   @override
   void initState() {
     super.initState();
-    _loadClientFrequency();
+    _loadClientFrequency(widget.frequencyID);
   }
 
-  Future<void> _loadClientFrequency() async {
+  Future<void> _loadClientFrequency(String frequency) async {
     ClientsFrequencyService actionService = ClientsFrequencyService();
     try {
-      final data = await actionService.getClientsFrequency();
+      final data = await actionService.getClientsFrequency(frequency);
       setState(() {
         _frequencyClients = data;
       });

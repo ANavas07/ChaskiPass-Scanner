@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 class FrequenciesService {
   static final http.Client _client = http.Client();
 
-
   static Uri getUri(String path) =>
       Uri.http(AppConstants.API_URL, '/chaski/api/$path');
 
@@ -13,9 +12,9 @@ class FrequenciesService {
     _client.close();
   }
 
-  Future<List<Map<String, dynamic>>> getFrequencies() async {
+  Future<List<Map<String, dynamic>>> getFrequencies(String id) async {
     try {
-      var uri = getUri('frequency/frequenciesPhone/Jerpazol01');
+      var uri = getUri('frequency/frequenciesPhone/$id');
       var response = await _client.get(
         uri,
         headers: {'Content-Type': 'application/json'},
@@ -28,7 +27,9 @@ class FrequenciesService {
         if (data['json'] != null &&
             data['json']['listFrequencies'] != null &&
             data['json']['listFrequencies'] is List) {
-          return List<Map<String, dynamic>>.from(data['json']['listFrequencies']);
+          return List<Map<String, dynamic>>.from(
+            data['json']['listFrequencies'],
+          );
         } else {
           throw Exception('La estructura de la respuesta no es válida.');
         }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:passengercontrol_chaskipass/screens/home/scanner.home.dart';
 import 'package:passengercontrol_chaskipass/screens/home/scanner2.dart';
 import 'package:passengercontrol_chaskipass/services/frequenciesService.services.dart';
 
 class Principalview extends StatefulWidget {
+  final String cooperativeID;
+  const Principalview({super.key, required this.cooperativeID});
+
   @override
   _PrincipalviewState createState() => _PrincipalviewState();
 }
@@ -15,13 +17,15 @@ class _PrincipalviewState extends State<Principalview> {
   @override
   void initState() {
     super.initState();
-    _loadFrequencies(); // Llama a la función auxiliar para cargar los datos
+    _loadFrequencies(
+      widget.cooperativeID,
+    ); // Llama a la función auxiliar para cargar los datos
   }
 
-  Future<void> _loadFrequencies() async {
+  Future<void> _loadFrequencies(String cooperativeID) async {
     FrequenciesService actionService = FrequenciesService();
     try {
-      final data = await actionService.getFrequencies();
+      final data = await actionService.getFrequencies(cooperativeID);
       setState(() {
         _frequencies = data;
       });
@@ -31,24 +35,11 @@ class _PrincipalviewState extends State<Principalview> {
     }
   }
 
-  void _searchFrequencies() {
-    final id = _idController.text.trim();
-    if (id.isNotEmpty) {
-      final filtered =
-          _frequencies.where((freq) => freq['id'].toString() == id).toList();
-      setState(() {
-        _frequencies = filtered;
-      });
-    } else {
-      _loadFrequencies(); // Recargar todas las frecuencias si el ID está vacío
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Frecuencias de Viaje'),
+        title: Text('Frecuencias de Viaje', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue.shade800,
       ),
       body: Padding(
@@ -70,11 +61,12 @@ class _PrincipalviewState extends State<Principalview> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => navigateToNextScreen(context),
+                onPressed:
+                    () => navigateToNextScreen(context, _idController.text),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade700,
                 ),
-                child: Text('Validar Frecuencia'),
+                child: Text('Validar Frecuencia', style: TextStyle(color: Colors.white),),
               ),
             ),
             const SizedBox(height: 20),
@@ -134,13 +126,11 @@ class _PrincipalviewState extends State<Principalview> {
     );
   }
 
-  void navigateToNextScreen(BuildContext context) {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (context) => ScannerScreen2()));
+  void navigateToNextScreen(BuildContext context, String frequencyID) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ScannerScreen2(frequencyID: frequencyID),
+      ),
+    );
   }
 }
-
-void main() => runApp(
-  MaterialApp(debugShowCheckedModeBanner: false, home: Principalview()),
-);

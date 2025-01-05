@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:passengercontrol_chaskipass/blocs/errorPopup.blocs.dart';
 import 'package:passengercontrol_chaskipass/components/inputDecoration.components.dart';
@@ -5,7 +7,6 @@ import 'package:passengercontrol_chaskipass/components/passwordField.components.
 import 'package:passengercontrol_chaskipass/models/loginRequest.models.dart';
 import 'package:passengercontrol_chaskipass/screens/auth/helpers/auth.helpers.dart';
 import 'package:passengercontrol_chaskipass/screens/home/principalView.home.dart';
-import 'package:passengercontrol_chaskipass/screens/home/scanner.home.dart';
 import 'package:passengercontrol_chaskipass/services/authService.services.dart';
 // import 'package:passengercontrol_chaskipass/src/blocs/errorPopup.blocs.dart';
 
@@ -187,8 +188,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
 
-        if (result != "") {
-          navigateToNextScreen(context); //no funciona
+        if (result.isNotEmpty) {
+          //Decodificar el resultado para obtener el cooperativeID
+          final userData = jsonDecode(result);
+          final cooperative = userData['cooperative'] ?? '';
+          navigateToNextScreen(context, cooperative); //no funciona
         } else {
           DialogUtils.showErrorDialog(context, 'Credenciales incorrectas');
         }
@@ -204,9 +208,9 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.clear();
   }
 
-  void navigateToNextScreen(BuildContext context) {
+  void navigateToNextScreen(BuildContext context, String cooperativeID) {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (context) => Principalview()));
+    ).push(MaterialPageRoute(builder: (context) => Principalview(cooperativeID: cooperativeID)));
   }
 }

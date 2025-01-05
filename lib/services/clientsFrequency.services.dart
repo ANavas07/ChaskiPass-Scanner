@@ -14,9 +14,9 @@ class ClientsFrequencyService {
     _client.close();
   }
 
-  Future<List<Map<String, dynamic>>> getClientsFrequency() async {
+  Future<List<Map<String, dynamic>>> getClientsFrequency(String frequency) async {
     try {
-      var uri = getUri('tickets/Allclients/bbb95e83-1');
+      var uri = getUri('tickets/Allclients/$frequency');
       var response = await _client.get(
         uri,
         headers: {'Content-Type': 'application/json'},
