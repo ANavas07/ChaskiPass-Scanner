@@ -1,17 +1,39 @@
-# passengercontrol_chaskipass
+# 🚀 ChaskiPass-Scanner
 
-A new Flutter project.
+**ChaskiPass-Scanner** is a lightweight and efficient QR code scanning app designed to verify individuals against a predefined list.  
+Ideal for events, check-ins, secure access, or attendance control — simply scan, validate, and move on.  
+Inspired by the efficiency and agility of the *Chaski* messengers from the Andes 🏃‍♂️📜.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📲 Key Features
 
-A few resources to get you started if this is your first Flutter project:
+- 🔍 **Fast QR Code Scanning** using mobile or webcam
+- ✅ **Real-time Validation** against a list of allowed users
+- 📋 **List-based Control** (CSV or local DB)
+- 📱 **Mobile-First Design**, responsive and easy to use
+- 🧾 **Validation Feedback** with status (Valid / Not Found)
+- 🔒 **Offline-ready** (if list is embedded or cached)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# ChaskiPass-Scanner
+## 🛠️ Tech Stack
+
+| Tool / Library | Purpose                       |
+|----------------|-------------------------------|
+| **React / Vite**   | Fast UI and app logic        |
+| **Tailwind CSS**   | Styling and layout           |
+| **QR Scanner Library** | Scans QR codes via camera |
+| **LocalStorage or CSV** | Stores and matches people list |
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ANavas07/chaski-scanner.git
+cd chaski-scanner
+npm install
+npm run dev
