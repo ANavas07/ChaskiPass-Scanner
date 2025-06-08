@@ -10,11 +10,9 @@ Inspired by the efficiency and agility of the *Chaski* messengers from the Andes
 
 - 🔍 **Fast QR Code Scanning** using mobile or webcam
 - ✅ **Real-time Validation** against a list of allowed users
-- 📋 **List-based Control** (CSV or local DB)
+- 📋 **List-based Control** (local DB)
 - 📱 **Mobile-First Design**, responsive and easy to use
 - 🧾 **Validation Feedback** with status (Valid / Not Found)
-- 🔒 **Offline-ready** (if list is embedded or cached)
-
 ---
 
 ## 🛠️ Tech Stack
@@ -24,7 +22,6 @@ Inspired by the efficiency and agility of the *Chaski* messengers from the Andes
 | **React / Vite**   | Fast UI and app logic        |
 | **Tailwind CSS**   | Styling and layout           |
 | **QR Scanner Library** | Scans QR codes via camera |
-| **LocalStorage or CSV** | Stores and matches people list |
 
 ---
 
